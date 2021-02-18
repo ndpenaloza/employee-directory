@@ -1,6 +1,8 @@
-import React from 'react';
+// Dependencies
+import React, { Component } from 'react';
+import EmployeeTable from './EmployeeTable';
 import API from '../../utils/API';
-import { Component } from "react";
+
 
 
 class Table extends Component {
@@ -9,22 +11,24 @@ class Table extends Component {
     }
 
 
-// After component loads, run searchRoster
-componentDidMount = () => {
-    this.searchRoster();
-}
+    // After component loads, run searchRoster
+    componentDidMount = () => {
+        this.searchRoster();
+    }
 
-searchRoster = () => {
-    API.roster()
-    .then((res) => 
-        this.setState({ results: res.data.results})
-    );
-    };
+    searchRoster = () => {
+        API.roster()
+        .then((res) => 
+            // console.log(res.data.results)
+            this.setState({ results: res.data.results})
+        );
+        };
+
 
     render() {
         return(
             <div>
-                <table>
+                <table className='table'>
                     <thead>
                         <tr>
                             <th>Image</th>
@@ -34,12 +38,18 @@ searchRoster = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>    
-                            <td ></td>
-                        </tr>
+                        {this.state.results.map(result => (
+                            <EmployeeTable
+                            image = {result.picture}
+                            name = {result.name}
+                            email = {result.email}
+                            phone = {result.phone}
+                            />
+                        ))};
+                                
                     </tbody>
                 </table>
-            </div>
+            </div>       
         );
     }
 }
