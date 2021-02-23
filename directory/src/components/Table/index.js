@@ -1,7 +1,7 @@
 // Dependencies
 import React, { Component } from 'react';
-import EmployeeTable from './EmployeeTable';
 import API from '../../utils/API';
+import uuid from 'react-uuid';
 
 
 
@@ -38,15 +38,15 @@ class Table extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.results.map(result => (
-                            <EmployeeTable
-                            image = {result.picture}
-                            name = {result.name}
-                            email = {result.email}
-                            phone = {result.phone}
-                            />
-                        ))};
-                                
+                      {this.state.results.map(result => (
+                        <tr key={uuid()}>
+                            <td><img src={result.picture.medium} alt={result.name.first + ' ' + result.name.last}/></td>
+                            <td>{result.name.first} {result.name.last}</td>
+                            <td>{result.email}</td>
+                            <td>{result.phone}</td>
+                        </tr>
+                      ))}
+
                     </tbody>
                 </table>
             </div>       
