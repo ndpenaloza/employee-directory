@@ -45,6 +45,9 @@ class Table extends Component {
     render() {
         return(
             <div>
+                <nav>
+                    <input placeholder='Search name...'/>
+                </nav>
                 <table className='table table-striped table-hover'>
                     <thead className='thead-dark'>
                         <tr>
