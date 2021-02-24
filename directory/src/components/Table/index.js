@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
 import uuid from 'react-uuid';
+// import { useSortBy } from 'react-table';
+import './style.css'
 
 
 
@@ -21,18 +23,37 @@ class Table extends Component {
         .then((res) => 
             // console.log(res.data.results)
             this.setState({ results: res.data.results})
-        );
+        )
+        .catch (err => console.log(err));
         };
+
+    sort = event => {
+        event.preventDefault();
+        this.state.results.sort((a, b) => {
+            // if (a.name.last > b.name.last) return 1;
+            // if (a.name.last < b.name.last) return -1;
+            if (a.name.last < b.name.last ) {
+                return a.name.last - b.name.last;
+            } else {
+                return b.name.last - a.name.last; 
+            }
+            }
+         )
+    }
 
 
     render() {
         return(
             <div>
-                <table className='table'>
-                    <thead>
+                <table className='table table-striped table-hover'>
+                    <thead className='thead-dark'>
                         <tr>
                             <th>Image</th>
-                            <th>Name</th>
+                            <th>Name<button onClick={this.sort} type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span className="caret white"></span>
+                                <span className="sr-only">Toggle Dropdown</span>
+                                </button>
+                            </th>
                             <th>Email</th>
                             <th>Phone Number</th>
                         </tr>
