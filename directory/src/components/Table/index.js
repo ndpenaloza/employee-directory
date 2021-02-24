@@ -18,6 +18,7 @@ class Table extends Component {
         this.searchRoster();
     }  
 
+    // Calls API, gets employess and displays in alphabetical order on load
     searchRoster = () => {
         API.roster()
         .then((res) => {
@@ -33,18 +34,30 @@ class Table extends Component {
         .catch(err => console.log(err));
     }
 
+    handleSort = event => {
+        event.preventDefault();
+        
+        let alphaOrder = this.state.results.reverse();
+
+        if (this.state.results) {
+            this.setState({
+                results: alphaOrder
+            })
+        }
+    }
+
 
     render() {
         return(
             <div>
                 <nav>
-                    <input placeholder='Search name...'/>
+                    <input placeholder='Search name...' onChange={this.handleInputChange}/>
                 </nav>
                 <table className='table table-striped table-hover'>
                     <thead className='thead-dark'>
                         <tr>
                             <th>Image</th>
-                            <th>Name<button onClick={this.sort} type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <th>Name<button onClick={this.handleSort} type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span className="caret white"></span>
                                 <span className="sr-only">Toggle Dropdown</span>
                                 </button>
