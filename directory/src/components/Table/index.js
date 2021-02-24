@@ -16,29 +16,21 @@ class Table extends Component {
     // After component loads, run searchRoster
     componentDidMount = () => {
         this.searchRoster();
-    }
+    }  
 
     searchRoster = () => {
         API.roster()
-        .then((res) => 
-            // console.log(res.data.results)
-            this.setState({ results: res.data.results})
-        )
-        .catch (err => console.log(err));
-        };
-
-    sort = event => {
-        event.preventDefault();
-        this.state.results.sort((a, b) => {
-            // if (a.name.last > b.name.last) return 1;
-            // if (a.name.last < b.name.last) return -1;
-            if (a.name.last < b.name.last ) {
-                return a.name.last - b.name.last;
-            } else {
-                return b.name.last - a.name.last; 
-            }
-            }
-         )
+        .then((res) => {
+            let results = res.data.results.sort((n,p) => {
+                if (n.name.last < p.name.last) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            })
+            return this.setState({ results: results })
+        })
+        .catch(err => console.log(err));
     }
 
 
