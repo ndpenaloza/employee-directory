@@ -1,5 +1,5 @@
 // Dependencies
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import API from '../../utils/API';
 import uuid from 'react-uuid';
 // import { useSortBy } from 'react-table';
@@ -52,14 +52,15 @@ class Table extends Component {
         }
     }
 
+    // Takes value of input
     handleInputChange = e => {
         e.preventDefault();
-        console.log(e.target.value)
+        console.log(e.target.value);
         this.setState({ searchNFilter: e.target.value })
     }
 
 
-    render() {
+    render () {
         return (
             <div>
                 <nav>
@@ -82,7 +83,7 @@ class Table extends Component {
                       {this.state.results
                       .filter(result => {
                           ((`${result.name.first} ${result.name.last}`).toLowerCase().includes(this.state.searchNFilter.toString().toLowerCase()))
-                              return result;
+                            return result;
                       }).map(result => {
                         return (
                             <tr key={uuid()}>
