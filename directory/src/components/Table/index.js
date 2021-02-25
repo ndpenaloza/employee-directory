@@ -1,5 +1,5 @@
 // Dependencies
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import API from '../../utils/API';
 import uuid from 'react-uuid';
 // import { useSortBy } from 'react-table';
@@ -9,9 +9,9 @@ import './style.css'
 
 class Table extends Component {
     state = {
-        results: []
+        results: [],
+        searchNFilter: []
     }
-
 
     // After component loads, run searchRoster
     componentDidMount = () => {
@@ -29,13 +29,17 @@ class Table extends Component {
                     return 1;
                 }
             })
-            return this.setState({ results: results })
+            return this.setState({
+                results: results,
+                searchNFilter: results
+            })
         })
         .catch(err => console.log(err));
     }
 
-    handleSort = event => {
-        event.preventDefault();
+    // Sorts employees by last name
+    handleSort = e => {
+        e.preventDefault();
         
         let alphaOrder = this.state.results.reverse();
 
@@ -43,16 +47,24 @@ class Table extends Component {
             this.setState({
                 results: alphaOrder
             })
+        } else {
+            console.log(`There's no roster!!`)
         }
+    }
+
+    handleInputChange = e => {
+        e.preventDefault();
+        console.log(e.target.value)
+        this.setState({ searchNFilter: e.target.value })
     }
 
 
     render() {
-        return(
+        return (
             <div>
                 <nav>
                     <input placeholder='Search name...' onChange={this.handleInputChange}/>
-                </nav>
+                </nav>  
                 <table className='table table-striped table-hover'>
                     <thead className='thead-dark'>
                         <tr>
@@ -67,15 +79,21 @@ class Table extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                      {this.state.results.map(result => (
-                        <tr key={uuid()}>
-                            <td><img src={result.picture.medium} alt={result.name.first + ' ' + result.name.last}/></td>
-                            <td>{result.name.first} {result.name.last}</td>
-                            <td>{result.email}</td>
-                            <td>{result.phone}</td>
-                        </tr>
-                      ))}
-
+                      {this.state.results
+                      .filter(result => {
+                          ((`${result.name.first} ${result.name.last}`).toLowerCase().includes(this.state.searchNFilter.toString().toLowerCase()))
+                              return result;
+                      }).map(result => {
+                        return (
+                            <tr key={uuid()}>
+                                <td><img src={result.picture.medium} alt={result.name.first + ' ' + result.name.last}/></td>
+                                <td>{result.name.first} {result.name.last}</td>
+                                <td>{result.email}</td>
+                                <td>{result.phone}</td>
+                            </tr>
+                        )
+                    })
+                    }
                     </tbody>
                 </table>
             </div>       
