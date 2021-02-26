@@ -51,7 +51,6 @@ class Table extends Component {
     // Takes value of input
     handleInputChange = e => {
         e.preventDefault();
-        console.log(e.target.value);
         this.setState({
             results: this.state.results,
             searchNFilter: e.target.value
