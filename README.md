@@ -14,6 +14,8 @@
 
 This application was created with [React.js](https://reactjs.org/). It allows the user to sort, search, and filter through an employee directory for an employee's contact information.
 
+Deployed Application: [Employee Directory](https://ndpenaloza.github.io/employee-directory/)
+
 ## Screenshots:
 
 ![Screenshot of Employee Directory App](./directory/public/employee-directory.png)
