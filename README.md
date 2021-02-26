@@ -3,20 +3,40 @@
 ![GitHub](https://img.shields.io/badge/license-MIT-green)
 
 ## Table of Contents
-  1.  [Description](#Description)
-  2.  [Screenshots](#Screenshots)
-  3.  [Installation](#Installation)
-  4.  [Usage](#Usage)
-  5.  [License](#License)
-  6.  [Questions](#Questions)
 
-## Description: 
+1.  [Description](#Description)
+2.  [Screenshots](#Screenshots)
+3.  [Installation](#Installation)
+4.  [License](#License)
+5.  [Questions](#Questions)
+
+## Description:
+
+This application was created with [React.js](https://reactjs.org/). It allows the user to sort, search, and filter through an employee directory for an employee's contact information.
 
 ## Screenshots:
 
+![Screenshot of Employee Directory App](./directory/public/employee-directory.png)
+
 ## Installation:
 
-## Usage:
+Clone repository and run:
+
+```
+npm start
+```
+
+To build:
+
+```
+npm run build
+```
+
+To eject:
+
+```
+npm run eject
+```
 
 ## License:
 
@@ -51,4 +71,5 @@ SOFTWARE.
 ## Questions:
 
 ### GitHub Username:
+
 ndpenaloza

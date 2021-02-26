@@ -2,10 +2,6 @@
 import React, { Component } from 'react';
 import API from '../../utils/API';
 import uuid from 'react-uuid';
-// import { useSortBy } from 'react-table';
-import './style.css'
-
-
 
 class Table extends Component {
     state = {
@@ -31,7 +27,7 @@ class Table extends Component {
             })
             return this.setState({
                 results: results,
-                searchNFilter: results
+                searchNFilter: ''
             })
         })
         .catch(err => console.log(err));
@@ -56,14 +52,17 @@ class Table extends Component {
     handleInputChange = e => {
         e.preventDefault();
         console.log(e.target.value);
-        this.setState({ searchNFilter: e.target.value })
+        this.setState({
+            results: this.state.results,
+            searchNFilter: e.target.value
+         })
     }
 
 
     render () {
         return (
             <div>
-                <nav>
+                <nav style={{backgroundColor:'#F5DF4D', height: 50, paddingTop:10}}>
                     <input placeholder='Search name...' onChange={this.handleInputChange}/>
                 </nav>  
                 <table className='table table-striped table-hover'>
@@ -71,7 +70,7 @@ class Table extends Component {
                         <tr>
                             <th>Image</th>
                             <th>Name<button onClick={this.handleSort} type="button" className="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span className="caret white"></span>
+                                <span className="caret"></span>
                                 <span className="sr-only">Toggle Dropdown</span>
                                 </button>
                             </th>
@@ -82,8 +81,7 @@ class Table extends Component {
                     <tbody>
                       {this.state.results
                       .filter(result => {
-                          ((`${result.name.first} ${result.name.last}`).toLowerCase().includes(this.state.searchNFilter.toString().toLowerCase()))
-                            return result;
+                          return ((`${result.name.first} ${result.name.last}`).toLowerCase().includes(this.state.searchNFilter.toString().toLowerCase()))
                       }).map(result => {
                         return (
                             <tr key={uuid()}>
